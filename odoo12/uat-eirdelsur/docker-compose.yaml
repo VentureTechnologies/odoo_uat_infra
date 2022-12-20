@@ -1,0 +1,35 @@
+version: '2'
+services:
+  web:
+    image: odoo:12.0
+    container_name: uat_web_eirdelsur
+    restart: always    
+    depends_on:
+      - db
+    ports:
+      - "9010:8069"
+      - "9011:8071"
+      - "9012:8072"
+
+    volumes:
+      - eir-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - /odoo12/addons:/mnt/extra-addons
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/
+
+  db:
+    image: postgres:10
+    container_name: uat_db_eirdelsur
+    restart: always    
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - eir-db-data:/var/lib/postgresql/data/pgdata
+
+volumes:
+  eir-web-data:
+  eir-db-data:
