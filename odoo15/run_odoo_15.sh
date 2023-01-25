@@ -1,0 +1,1 @@
+docker run -v /opt/uat_odoo_infra/odoo16/addons/condo_admin_odoo:/mnt/extra-addons -p 9010:8069 --name odoo15 --link db:db -t -d odoo:15.0
